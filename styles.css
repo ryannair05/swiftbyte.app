@@ -2,11 +2,25 @@
     --primary-color: #4F46E5;
     --secondary-color: #818CF8;
     --text-color: #1F2937;
-    --light-bg: #F9FAFB;
+    --bg-color: #F9FAFB;
     --card-bg: #FFFFFF;
     --spacing: 2rem;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #818CF8;
+        --secondary-color: #4F46E5;
+        --text-color: #F9FAFB;
+        --bg-color: #1F2937;
+        --card-bg: #374151;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+  
 * {
     margin: 0;
 }
@@ -15,7 +29,7 @@ body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--light-bg);
+    background-color: var(--bg-color);
 }
 
 .navbar {
@@ -53,7 +67,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem var(--spacing);
+    padding: var(--spacing) var(--spacing) 0;
 }
 
 .features-grid {
@@ -63,8 +77,9 @@ body {
     margin-top: 3rem;
 }
 
-.feature-card {
+.feature-card, .university-card {
     background: var(--card-bg);
+    color: var(--text-color);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -89,6 +104,7 @@ body {
     border-radius: 8px;
     font-weight: 600;
     transition: transform 0.3s ease;
+    margin: 1.5rem 0;
 }
 
 .cta-button:hover, .contact-button:hover {
@@ -96,7 +112,7 @@ body {
 }
 
 .accent-bg {
-    background-color: #F3F4F6;
+    background-color: var(--bg-color);
 }
 
 .university-list {
@@ -107,17 +123,9 @@ body {
     margin: 2rem 0;
 }
 
-.university-card {
-    background: var(--card-bg);
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
 .site-footer {
     background-color: var(--text-color);
-    color: white;
+    color: var(--bg-color);
     padding: 2rem var(--spacing);
     text-align: center;
 }
@@ -144,7 +152,7 @@ body {
 }
 
 .footer-nav a {
-    color: white;
+    color: var(--bg-color);
     text-decoration: none;
     display: block;
     transition: color 0.3s ease-in-out;
@@ -164,7 +172,7 @@ body {
 .instagram-logo {
     display: flex;
     justify-content: center;
-    color: white;
+    color: var(--bg-color);
     transition: color 0.3s ease-in-out;
 }
 
