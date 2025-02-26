@@ -105,7 +105,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.cta-button, .contact-button {
+.button {
     display: inline-block;
     padding: 1rem 2rem;
     background: var(--card-bg);
@@ -114,10 +114,17 @@ body {
     border-radius: 8px;
     font-weight: 600;
     transition: transform 0.3s ease;
+}
+
+.cta-button {
+    font-size: 1.25rem;
+}
+
+.contact-button {
     margin: 1.5rem 0;
 }
 
-.cta-button:hover, .contact-button:hover {
+.button:hover {
     transform: scale(1.05);
 }
 
