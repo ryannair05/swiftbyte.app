@@ -104,6 +104,7 @@ body {
 .feature-icon {
     font-size: 2rem;
     margin-bottom: 1rem;
+    font-synthesis: none;
 }
 
 .button {
@@ -114,7 +115,13 @@ body {
     text-decoration: none;
     border-radius: 8px;
     font-weight: 600;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: var(--primary-color);
+    color: var(--card-bg);
+    transform: scale(1.05);
 }
 
 .cta-button {
@@ -125,7 +132,7 @@ body {
     margin: 1.5rem 0;
 }
 
-.button:hover, .app-icon:hover {
+.app-icon:hover {
     transform: scale(1.05);
 }
 
