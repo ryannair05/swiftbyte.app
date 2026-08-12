@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <meta name="referrer" content="no-referrer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; img-src 'self' data:; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'">
+    <title>Open in Meet and Eat</title>
+    <meta name="description" content="Open a shared campus dining or CATA selection in Meet and Eat, with official-source and App Store fallbacks.">
+    <meta name="apple-itunes-app" content="app-id=6446225508">
+    <link rel="canonical" href="https://swiftbyte.app/meetandeat/open/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Meet and Eat">
+    <meta property="og:title" content="Open in Meet and Eat">
+    <meta property="og:description" content="A shared Meet and Eat link for campus dining or CATA. Open the app or continue to an official source.">
+    <meta property="og:url" content="https://swiftbyte.app/meetandeat/open/">
+    <meta property="og:image" content="https://swiftbyte.app/AppIcon.png">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="/AppIcon.png" type="image/png">
+    <link rel="stylesheet" href="/meetandeat/styles.css">
+    <script type="module" src="/meetandeat/open/dispatcher.mjs"></script>
+</head>
+<body>
+    <div class="site-shell">
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a class="brand" href="/meetandeat/">
+                <img src="/AppIcon.png" alt="">
+                <span>Meet and Eat</span>
+            </a>
+            <a class="nav-link" href="/privacypolicy.html">Privacy</a>
+        </nav>
+
+        <main>
+            <section class="hero compact">
+                <div class="hero-copy">
+                    <p class="eyebrow">Shared from Meet and Eat</p>
+                    <h1 id="requestTitle">Meet and Eat</h1>
+                    <p id="requestState" class="lede request-state">Open a campus dining or CATA selection in the app. This static page does not load menu, account, entitlement, or live departure data.</p>
+                </div>
+                <div class="app-mark" aria-hidden="true">
+                    <img src="/AppIcon.png" alt="">
+                </div>
+            </section>
+
+            <section class="panel request-card" aria-label="Shared link actions">
+                <h2>Choose where to continue</h2>
+                <p>The app opens only after you tap the button. If it is not installed or your browser blocks the request, this page stays available.</p>
+                <div class="actions">
+                    <a id="openAction" class="button primary" aria-disabled="true">Open in Meet and Eat</a>
+                    <a id="officialAction" class="button" href="/meetandeat/">Visit Meet and Eat</a>
+                    <a class="button" href="https://apps.apple.com/us/app/meet-and-eat-campus-dining/id6446225508" rel="noopener noreferrer">Download on the App Store</a>
+                </div>
+                <p class="request-note">Query values are treated as public input. They are validated in this browser and are not used to fetch personal or live data.</p>
+                <noscript>
+                    <p class="request-note">JavaScript is off, so this page cannot validate and prepare the app destination. The App Store and product-page links still work.</p>
+                </noscript>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>© 2026 SwiftByte LLC</p>
+            <p><a href="mailto:support@swiftbyte.app">Support</a> · <a href="/privacypolicy.html">Privacy Policy</a></p>
+        </footer>
+    </div>
+</body>
+</html>
