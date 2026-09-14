@@ -1,2 +1,7 @@
 include:
   - .well-known
+exclude:
+  - docs
+  - scripts
+  - tests
+  - README.md

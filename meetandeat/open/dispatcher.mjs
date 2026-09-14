@@ -1,4 +1,4 @@
-const APP_STORE_URL = "https://apps.apple.com/us/app/meet-and-eat-campus-dining/id6446225508";
+const APP_STORE_URL = "https://apps.apple.com/us/app/halls-campus-dining/id6446225508";
 
 const PROVIDERS = Object.freeze({
     psu: Object.freeze({
@@ -28,27 +28,7 @@ const PROVIDERS = Object.freeze({
         }),
         dishPrefixes: Object.freeze(["mid", "name"])
     }),
-    "barnard-columbia": Object.freeze({
-        name: "Barnard and Columbia",
-        diningURL: "https://barnard.edu/restaurants",
-        halls: Object.freeze({
-            hewitt: Object.freeze({ name: "Hewitt Dining Hall", officialURL: "https://barnard.edu/restaurants" }),
-            liz: Object.freeze({ name: "Liz’s Place", officialURL: "https://barnard.edu/restaurants" })
-        }),
-        dishPrefixes: Object.freeze(["native", "name"])
-    }),
-    uga: Object.freeze({
-        name: "UGA",
-        diningURL: "https://dining.uga.edu/locations/dining-commons/",
-        halls: Object.freeze({
-            bolton: Object.freeze({ name: "Bolton", officialURL: "https://dining.uga.edu/locations/dining-commons/" }),
-            oglethorpe: Object.freeze({ name: "Oglethorpe", officialURL: "https://dining.uga.edu/locations/dining-commons/" }),
-            snelling: Object.freeze({ name: "Snelling", officialURL: "https://dining.uga.edu/locations/dining-commons/" }),
-            niche: Object.freeze({ name: "The Niche", officialURL: "https://dining.uga.edu/locations/dining-commons/" }),
-            village: Object.freeze({ name: "Village Summit", officialURL: "https://dining.uga.edu/locations/dining-commons/" })
-        }),
-        dishPrefixes: Object.freeze(["native", "name"])
-    })
+
 });
 
 const CATA_OFFICIAL_URL = "https://catabus.com/";
@@ -62,8 +42,18 @@ function invalid(reason = "unsupported") {
     return Object.freeze({ valid: false, reason });
 }
 
+function isPositiveID(value) {
+    if (!POSITIVE_DECIMAL.test(value)) return false;
+    const id = BigInt(value);
+    return id > 0n && id <= 9223372036854775807n;
+}
+
 function unicodeScalarCount(value) {
-    return Array.from(value).length;
+    let count = 0;
+    for (const scalar of value) {
+        if (++count > 128) break;
+    }
+    return count;
 }
 
 function isBoundedPublicValue(value) {
@@ -109,8 +99,8 @@ function buildHallRequest(id, date, meal) {
     const scoped = splitAtFirstColon(id);
     if (!scoped) return invalid("invalid-id");
     const [providerID, hallID] = scoped;
-    const provider = PROVIDERS[providerID];
-    const hall = provider?.halls[hallID];
+    const provider = providerID === "psu" ? PROVIDERS.psu : null;
+    const hall = provider && Object.hasOwn(provider.halls, hallID) ? provider.halls[hallID] : null;
     if (!provider || !hall) return invalid("unsupported-hall");
     if (date !== null && !strictGregorianDate(date)) return invalid("invalid-date");
     if (meal !== null && !MEAL_SLUG.test(meal)) return invalid("invalid-meal");
@@ -127,11 +117,12 @@ function buildHallRequest(id, date, meal) {
         kind: "hall",
         targetURL: target.href,
         officialURL: hall.officialURL,
+        showOfficialAction: false,
         officialLabel: `View official ${hall.name} information`,
         title: `${hall.name} dining`,
         detail: context
-            ? `Open the shared ${context} selection in Meet and Eat. Official dining details remain available from ${provider.name}.`
-            : `Open this dining hall in Meet and Eat, or use ${provider.name} for official dining details.`
+            ? `Open the shared ${context} selection in Halls. Official dining details remain available from ${provider.name}.`
+            : `Open this dining hall in Halls, or use ${provider.name} for official dining details.`
     });
 }
 
@@ -140,12 +131,13 @@ function buildDishRequest(id, date, meal) {
     const scoped = splitAtFirstColon(id);
     if (!scoped) return invalid("invalid-id");
     const [providerID, component] = scoped;
-    const provider = PROVIDERS[providerID];
+    const provider = providerID === "psu" ? PROVIDERS.psu : null;
     const canonical = splitAtFirstColon(component);
     if (!provider || !canonical || !provider.dishPrefixes.includes(canonical[0])) {
         return invalid("unsupported-dish");
     }
     if (!isBoundedPublicValue(canonical[1])) return invalid("invalid-id");
+    if (canonical[0] === "mid" && !isPositiveID(canonical[1])) return invalid("invalid-id");
     if (date !== null && !strictGregorianDate(date)) return invalid("invalid-date");
 
     const target = new URL("meetandeat://dish");
@@ -161,14 +153,14 @@ function buildDishRequest(id, date, meal) {
         officialLabel: `View official ${provider.name} dining information`,
         title: "Shared dining item",
         detail: date
-            ? `Open this item for ${date} in Meet and Eat. The static page does not claim that it is currently served.`
-            : "Open this item in Meet and Eat. The static page does not claim that it is currently served."
+            ? `Open this item for ${date} in Halls. The static page does not claim that it is currently served.`
+            : "Open this item in Halls. The static page does not claim that it is currently served."
     });
 }
 
 function buildCATARequest(kind, id, date, meal) {
     if (date !== null || meal !== null) return invalid("unsupported-fields");
-    if (!POSITIVE_DECIMAL.test(id) || BigInt(id) <= 0n) return invalid("invalid-id");
+    if (!isPositiveID(id)) return invalid("invalid-id");
     const segment = kind === "cata-route" ? "route" : "stop";
     const target = new URL(`meetandeat://cata/${segment}`);
     target.searchParams.set("id", id);
@@ -177,9 +169,10 @@ function buildCATARequest(kind, id, date, meal) {
         kind,
         targetURL: target.href,
         officialURL: CATA_OFFICIAL_URL,
+        showOfficialAction: false,
         officialLabel: "View official CATA service information",
         title: kind === "cata-route" ? "CATA route" : "CATA stop",
-        detail: "Open this selection in Meet and Eat. Use CATA’s official site for current service information."
+        detail: "Open this selection in Halls. Use CATA’s official site for current service information."
     });
 }
 
@@ -222,12 +215,13 @@ export function applyDispatcher(documentObject, search) {
     const officialAction = documentObject.getElementById("officialAction");
 
     if (!result.valid) {
-        title.textContent = "Meet and Eat";
-        detail.textContent = "This link is incomplete or unsupported. You can still download Meet and Eat or visit its product page.";
+        title.textContent = "Halls";
+        detail.textContent = "This link is incomplete or unsupported. You can still download Halls or visit its product page.";
         openAction.removeAttribute("href");
         openAction.setAttribute("aria-disabled", "true");
+        officialAction.hidden = false;
         officialAction.href = "/meetandeat/";
-        officialAction.textContent = "Visit Meet and Eat";
+        officialAction.textContent = "Visit Halls";
         return result;
     }
 
@@ -235,13 +229,10 @@ export function applyDispatcher(documentObject, search) {
     detail.textContent = result.detail;
     openAction.href = result.targetURL;
     openAction.setAttribute("aria-disabled", "false");
+    officialAction.hidden = result.showOfficialAction === false;
     officialAction.href = result.officialURL;
     officialAction.textContent = result.officialLabel;
     return result;
 }
 
 export { APP_STORE_URL };
-
-if (typeof document !== "undefined" && typeof window !== "undefined") {
-    applyDispatcher(document, window.location.search);
-}
