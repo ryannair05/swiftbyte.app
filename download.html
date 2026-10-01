@@ -9,16 +9,18 @@
     var ua = navigator.userAgent || navigator.vendor || window.opera;
     var iosUrl = "https://apps.apple.com/us/app/halls-campus-dining/id6446225508?itscg=30200&itsct=apps_box_badge&mttnsubad=6446225508";
     var androidUrl = "https://play.google.com/store/apps/details?id=com.ryannair05.meetandeat";
-    var mainSiteUrl = "https://swiftbyte.app/";
+    var mainSiteUrl = "/";
 
     var destUrl;
 
+    // iPadOS and macOS both report "Macintosh"; the App Store link serves iPhone, iPad and the Mac App Store.
     if (/android/i.test(ua)) {
       destUrl = androidUrl;
-    } else if (/iPad|iPhone/.test(ua) && !window.MSStream) {
+    } else if (/iPad|iPhone|iPod|Macintosh/.test(ua) && !window.MSStream) {
       destUrl = iosUrl;
     } else {
-      destUrl = mainSiteUrl;
+      // Other desktops get the homepage with the "scan to download" panel open.
+      destUrl = mainSiteUrl + "#get";
     }
 
     // Redirect immediately

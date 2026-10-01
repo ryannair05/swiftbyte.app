@@ -35,9 +35,9 @@ Universal-link rules intentionally cover the PSU implementation and CATA. They d
 
 The local implementation is complete, but production linking requires both deployments:
 
-1. Publish this website, including `/.well-known/apple-app-site-association` with **no file extension**, HTTPS 200, no redirect, and `Content-Type: application/json`. The old `.html` endpoint alone is insufficient. At inspection, the existing GitHub Pages response returned `text/html` and had no `applinks` section. Verify the extensionless MIME response after publishing; if the host cannot set it, configure an edge response/header override or a host that can. Do not assume a filename changes hosting headers.
+1. Publish this website, including `/.well-known/apple-app-site-association` with **no file extension**, served over HTTPS with a valid certificate, status 200 and no redirects. These are the requirements in Apple's "Supporting associated domains" documentation. Apple doesn't specify a Content-Type, and since iOS 14 devices read the file from Apple's CDN (`https://app-site-association.cdn-apple.com/a/v1/swiftbyte.app`), which serves it as `application/json` regardless of what GitHub Pages sends.
 2. Ensure Associated Domains is enabled for the app's Apple Developer App ID and the release provisioning profile, then install a signed build containing the new entitlement and routing code.
-3. Run `node scripts/check-association.mjs https://swiftbyte.app`. Check Apple's cached response at `https://app-site-association.cdn-apple.com/a/v1/swiftbyte.app` as well.
+3. Run `node scripts/check-association.mjs https://swiftbyte.app`. It checks both the site and Apple's CDN copy.
 4. Test on a device from Notes or Messages, with the app terminated and running, and with another university or tab selected. Verify all five halls and selected dates/meals. Also test a valid shared dish and valid CATA route/stop.
 
 Safari may keep same-domain navigation in the browser; the site's explicit “Open in Halls” buttons use the custom scheme to provide a direct action. Apple's CDN can cache association files, and reinstalling the updated app requests a newer association. Production universal-link delivery was not claimed as verified before deployment.

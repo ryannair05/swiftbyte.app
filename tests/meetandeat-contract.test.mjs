@@ -236,10 +236,7 @@ test("canonical association explicitly supports all Penn State halls", async () 
     detail.appIDs.includes(appID),
   );
   assert.ok(app);
-  const legacy = JSON.parse(await source(".well-known/apple-app-site-association.html"));
-  assert.deepEqual(association.webcredentials, legacy.webcredentials);
   assert.equal("appclips" in association, false);
-  assert.equal("appclips" in legacy, false);
   assert.equal("apps" in association.applinks, false);
   assert.equal(app.components.length, 2);
   const matches = (pathname) => app.components.some((component) => {

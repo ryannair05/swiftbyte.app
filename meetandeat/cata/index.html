@@ -27,7 +27,8 @@
     <meta property="og:image" content="https://swiftbyte.app/AppIcon.png" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/AppIcon.png" type="image/png" />
-    <link rel="stylesheet" href="/meetandeat/styles.css?v=20260914e" />
+    <link rel="stylesheet" href="/meetandeat/styles.css?v=20260930g" />
+    <script type="module" src="/meetandeat/route-diagram.mjs"></script>
   </head>
   <body>
     <div class="site-shell">
@@ -40,42 +41,101 @@
         <a class="nav-link" href="/meetandeat/">Product page</a>
       </nav>
       <main>
-        <section class="hero compact">
-          <div class="hero-copy">
-            <p class="eyebrow">CATA</p>
-            <h1>Your campus bus check, kept practical.</h1>
-            <p class="lede">
-              Halls helps you inspect CATA routes, stops, and available
-              service information.
-            </p>
+        <section class="route-diagram" aria-labelledby="route-diagram-title">
+          <div class="diagram-head">
+            <p class="eyebrow">CATA in Halls</p>
+            <h1 id="route-diagram-title">Every route, color‑coded.</h1>
+            <p class="lede">Watch the buses move, pick the routes you ride, and check when the next one gets to your stop.</p>
             <div class="actions">
-              <a class="button primary" href="meetandeat://cata"
-                >Open in Halls</a
-              >
-              <a
-                class="button"
-                href="https://apps.apple.com/us/app/halls-campus-dining/id6446225508"
-                rel="noopener noreferrer"
-                >Download on the App Store</a
-              >
+              <a class="button primary" href="meetandeat://cata">Open in Halls</a>
+              <a class="button" href="https://apps.apple.com/us/app/halls-campus-dining/id6446225508" rel="noopener noreferrer">Download on the App Store</a>
             </div>
           </div>
-          <figure class="detail-showcase showcase-cata">
-            <span class="showcase-kicker">CATA</span>
-            <div class="showcase-device">
-              <img class="detail-image" src="/assets/details/cata.webp"
-                width="540" height="1080" alt="CATA map in Halls" />
+          <div class="diagram">
+            <svg class="diagram-lines diagram-wide" viewBox="0 0 1160 640" aria-hidden="true">
+              <path class="line feeder" pathLength="1" stroke="#FDCC0A" d="M 760 -20 V 252" />
+              <path class="line feeder" pathLength="1" stroke="#9A65FF" d="M 350 410 L 390 450 V 660" />
+              <path id="w-bl" class="line" pathLength="1" stroke="#0071CA" d="M -20 330 H 330 L 440 220 H 720 L 830 330 H 1180" /><path id="w-rl" class="line" pathLength="1" stroke="#FD0006" d="M -20 350 H 330 L 440 240 H 720 L 830 350 H 1180" /><path id="w-cc" class="line" pathLength="1" stroke="#00009A" d="M -20 370 H 330 L 440 260 H 720 L 830 370 H 1180" /><path id="w-n" class="line" pathLength="1" stroke="#01AFF1" d="M -20 390 H 330 L 440 280 H 720 L 830 390 H 1180" /><path id="w-up" class="line" pathLength="1" stroke="#2ACACC" d="M -20 410 H 330 L 440 300 H 720 L 830 410 H 1180" /><path id="w-v" class="line" pathLength="1" stroke="#FF6500" d="M -20 430 H 330 L 440 320 H 720 L 830 430 H 1180" />
+              <path class="line tail" stroke="#0071CA" d="M -2400 330 H -20 M 1180 330 H 3560" /><path class="line tail" stroke="#FD0006" d="M -2400 350 H -20 M 1180 350 H 3560" /><path class="line tail" stroke="#00009A" d="M -2400 370 H -20 M 1180 370 H 3560" /><path class="line tail" stroke="#01AFF1" d="M -2400 390 H -20 M 1180 390 H 3560" /><path class="line tail" stroke="#2ACACC" d="M -2400 410 H -20 M 1180 410 H 3560" /><path class="line tail" stroke="#FF6500" d="M -2400 430 H -20 M 1180 430 H 3560" />
+              <rect class="interchange" x="-6" y="318" width="22" height="124" rx="11" />
+              <rect class="interchange" x="1144" y="318" width="22" height="124" rx="11" />
+              <circle class="stop" cx="760" cy="-2" r="9" />
+              <circle class="stop" cx="390" cy="642" r="9" />
+              <g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#0071CA" />
+                <text y="4.5">BL</text>
+                <animateMotion dur="13s" begin="-0.5s" repeatCount="indefinite"><mpath href="#w-bl" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#FD0006" />
+                <text y="4.5">RL</text>
+                <animateMotion dur="17s" begin="-3.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w-rl" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#00009A" />
+                <text y="4.5">CC</text>
+                <animateMotion dur="11s" begin="-5.9s" repeatCount="indefinite"><mpath href="#w-cc" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-15.5" y="-11" width="31" height="22" rx="11" fill="#01AFF1" />
+                <text y="4.5">N</text>
+                <animateMotion dur="15s" begin="-8.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w-n" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#2ACACC" />
+                <text y="4.5">UP</text>
+                <animateMotion dur="19s" begin="-11.3s" repeatCount="indefinite"><mpath href="#w-up" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-15.5" y="-11" width="31" height="22" rx="11" fill="#FF6500" />
+                <text y="4.5">V</text>
+                <animateMotion dur="14s" begin="-14.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w-v" /></animateMotion>
+              </g>
+            </svg>
+            <svg class="diagram-lines diagram-tall" viewBox="0 0 400 1800" aria-hidden="true">
+              <path class="line feeder" pathLength="1" stroke="#FDCC0A" d="M 420 250 H 352" />
+              <path class="line feeder" pathLength="1" stroke="#9A65FF" d="M -20 860 H 58" />
+              <path id="t-bl" class="line" pathLength="1" stroke="#0071CA" d="M 250 -20 V 520 L 60 710 V 1110 L 250 1300 V 1820" /><path id="t-rl" class="line" pathLength="1" stroke="#FD0006" d="M 270 -20 V 520 L 80 710 V 1110 L 270 1300 V 1820" /><path id="t-cc" class="line" pathLength="1" stroke="#00009A" d="M 290 -20 V 520 L 100 710 V 1110 L 290 1300 V 1820" /><path id="t-n" class="line" pathLength="1" stroke="#01AFF1" d="M 310 -20 V 520 L 120 710 V 1110 L 310 1300 V 1820" /><path id="t-up" class="line" pathLength="1" stroke="#2ACACC" d="M 330 -20 V 520 L 140 710 V 1110 L 330 1300 V 1820" /><path id="t-v" class="line" pathLength="1" stroke="#FF6500" d="M 350 -20 V 520 L 160 710 V 1110 L 350 1300 V 1820" />
+              <rect class="interchange" x="238" y="14" width="124" height="22" rx="11" />
+              <rect class="interchange" x="238" y="1764" width="124" height="22" rx="11" />
+              <circle class="stop" cx="388" cy="250" r="9" />
+              <circle class="stop" cx="12" cy="860" r="9" />
+              <g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#0071CA" />
+                <text y="4.5">BL</text>
+                <animateMotion dur="17s" begin="-0.5s" repeatCount="indefinite"><mpath href="#t-bl" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#FD0006" />
+                <text y="4.5">RL</text>
+                <animateMotion dur="22s" begin="-3.2s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t-rl" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#00009A" />
+                <text y="4.5">CC</text>
+                <animateMotion dur="14s" begin="-5.9s" repeatCount="indefinite"><mpath href="#t-cc" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-15.5" y="-11" width="31" height="22" rx="11" fill="#01AFF1" />
+                <text y="4.5">N</text>
+                <animateMotion dur="20s" begin="-8.6s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t-n" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-20.0" y="-11" width="40" height="22" rx="11" fill="#2ACACC" />
+                <text y="4.5">UP</text>
+                <animateMotion dur="25s" begin="-11.3s" repeatCount="indefinite"><mpath href="#t-up" /></animateMotion>
+              </g><g class="chip">
+                <rect x="-15.5" y="-11" width="31" height="22" rx="11" fill="#FF6500" />
+                <text y="4.5">V</text>
+                <animateMotion dur="18s" begin="-14.0s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#t-v" /></animateMotion>
+              </g>
+            </svg>
+            <div class="stations">
+              <figure class="station">
+                <img src="/assets/renders/cata-bus.webp" width="760" height="1296" alt="A bus on the CATA map in Halls, counterclockwise via Beaver Ave with 3 of 36 seats taken" />
+                <figcaption><strong>Tap any bus</strong><span>See which way it’s headed and how full it is.</span></figcaption>
+              </figure>
+              <figure class="station">
+                <img src="/assets/renders/cata-routes.webp" width="760" height="1296" alt="The Available Routes list in Halls with each CATA route’s colored badge" />
+                <figcaption><strong>Pick your routes</strong><span>Show just the ones you ride.</span></figcaption>
+              </figure>
+              <figure class="station">
+                <img src="/assets/renders/cata-stop.webp" width="760" height="1296" alt="Upcoming departures at E College Ave at Atherton Hall, in minutes" />
+                <figcaption><strong>Check your stop</strong><span>The next buses, and how many minutes away they are.</span></figcaption>
+              </figure>
             </div>
-            <figcaption><strong>Your next stop starts here.</strong><span>App preview · September 2026</span></figcaption>
-          </figure>
-        </section>
-        <section class="panel request-card">
-          <h2>Live details stay with live sources.</h2>
-          <p>
-            This static page does not promise that a bus, departure, or route is
-            active right now. Halls and CATA’s official site can provide
-            the current context.
-          </p>
+          </div>
         </section>
       </main>
       <footer class="site-footer">
